@@ -103,7 +103,8 @@ product_urls = [
     ("https://www.amazon.es/s?k=vestidos&rh=p_n_free_shipping_eligible","Women Fashion"),
     ("https://www.amazon.es/s?k=oficina&rh=p_n_free_shipping_eligible","Furniture & Organization"),
     ("https://www.amazon.es/s?k=belleza&rh=p_n_free_shipping_eligible","Beauty"),
-    ("https://www.amazon.es/s?k=videojuegos&rh=p_n_free_shipping_eligible","Electronic & RC Toys")
+    ("https://www.amazon.es/s?k=videojuegos&rh=p_n_free_shipping_eligible","Electronic & RC Toys"),
+    ("https://www.amazon.es/s?k=funko&rh=p_n_free_shipping_eligible","Toys & Games")
     # Añade más URLs de productos si es necesario
 ]
 
@@ -209,7 +210,7 @@ with open(file_path, "w", encoding="utf-8") as file:
                     "title": title.text.strip() if title else None,
 
                     "price": price.text.strip() if price else 0,
-                    #"image": image.attrs['src'] if image else None,
+                    "image": image.attrs['src'] if image else None,
                     "previous_price": previous_price.text.strip() if previous_price else 0,
                     "rating": rating.text.strip() if rating else None,
                     "asin": asin,  # Incluye el ASIN extraído
@@ -239,6 +240,7 @@ with open(file_path, "w", encoding="utf-8") as file:
                 product_name = product.get("title").replace("'","")
                 search_price = product.get("price")
                 product_price_old = product.get("previous_price")
+                aw_image_url = product.get("image")
 
                 print(product_name + " " + str(search_price) + " " + str(product_price_old))
 
@@ -267,12 +269,13 @@ with open(file_path, "w", encoding="utf-8") as file:
                 # Generar el SQL INSERT con ON DUPLICATE KEY UPDATE
                     insert_sql = f"""
                     INSERT INTO productos (merchant_name, aw_product_id, aw_deep_link, merchant_category, 
-                    product_name, search_price, product_price_old, saving)
+                    product_name, search_price, product_price_old, saving, aw_image_url)
                     VALUES ('{merchant_name}', '{aw_product_id}', '{aw_deep_link}', '{category}', 
-                    '{product_name}', {search_price}, {product_price_old}, {saving})
+                    '{product_name}', {search_price}, {product_price_old}, {saving}, '{aw_image_url}')
                     ON DUPLICATE KEY UPDATE 
                     search_price = VALUES(search_price), 
                     product_price_old = VALUES(product_price_old), 
+                    aw_image_url = VALUES(aw_image_url), 
                     saving = VALUES(saving);
                     """
             
