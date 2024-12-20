@@ -5,8 +5,8 @@ import random
 import os
 
 proxies = {
-    "http": "http://oqzjnkw:Fz6hc649@http.ntlm.internetpsa.inetpsa.com:8080",
-    "https": "http://oqzjnkw:Fz6hc649@http.ntlm.internetpsa.inetpsa.com:8080",
+    "http": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
+    "https": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
 }
 
 useragents=['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
@@ -104,6 +104,8 @@ product_urls = [
     ("https://www.amazon.es/s?k=oficina&rh=p_n_free_shipping_eligible","Furniture & Organization"),
     ("https://www.amazon.es/s?k=belleza&rh=p_n_free_shipping_eligible","Beauty"),
     ("https://www.amazon.es/s?k=videojuegos&rh=p_n_free_shipping_eligible","Electronic & RC Toys"),
+    ("https://www.amazon.es/s?k=portatil+rtxil&rh=p_n_free_shipping_eligible","Computers & Laptops"),
+    ("https://www.amazon.es/s?k=amazon+games&rh=p_n_free_shipping_eligible","Toys & Games"),
     ("https://www.amazon.es/s?k=funko&rh=p_n_free_shipping_eligible","Toys & Games")
     # Añade más URLs de productos si es necesario
 ]
@@ -269,9 +271,9 @@ with open(file_path, "w", encoding="utf-8") as file:
                 # Generar el SQL INSERT con ON DUPLICATE KEY UPDATE
                     insert_sql = f"""
                     INSERT INTO productos (merchant_name, aw_product_id, aw_deep_link, merchant_category, 
-                    product_name, search_price, product_price_old, saving, aw_image_url)
+                    product_name, search_price, product_price_old, saving, aw_image_url,categoria1, categoria2)
                     VALUES ('{merchant_name}', '{aw_product_id}', '{aw_deep_link}', '{category}', 
-                    '{product_name}', {search_price}, {product_price_old}, {saving}, '{aw_image_url}')
+                    '{product_name}', {search_price}, {product_price_old}, {saving}, '{aw_image_url}','{category}','{category}')
                     ON DUPLICATE KEY UPDATE 
                     search_price = VALUES(search_price), 
                     product_price_old = VALUES(product_price_old), 

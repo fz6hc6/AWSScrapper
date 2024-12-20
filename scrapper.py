@@ -9,8 +9,8 @@ specs_arr=[]
 specs_obj={}
 
 proxies = {
-    "http": "http://oqzjnkw:Fz6hc649@http.ntlm.internetpsa.inetpsa.com:8080",
-    "https": "http://oqzjnkw:Fz6hc649@http.ntlm.internetpsa.inetpsa.com:8080",
+    "http": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
+    "https": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
 }
 
 useragents=['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
@@ -51,11 +51,9 @@ headers={"User-Agent":useragents[random.randint(0,31)],"accept-language": "en-US
 
 
 product_urls = [
-    ("https://www.amazon.es/dp/B0763XM6QC","Groceries"),
-        ("https://www.amazon.es/dp/B0CQTM5G4R","Groceries"),
-            ("https://www.amazon.es/dp/B07GVQQ1RK","Groceries"),
-                ("https://www.amazon.es/dp/B0CH3F9QPJ","Groceries"),
-                    ("https://www.amazon.es/dp/B0CJKTWTVT","Televisions & Videos")
+    ("https://www.amazon.es/dp/B0BPMJPLN5/", "Computers & Laptops"),
+    ("https://www.amazon.es/gp/product/8413923603","Juegos y Juguetes"),
+        ("https://www.amazon.es/gp/product/8413921074","Juegos y Juguetes")
     # Añade más URLs de productos si es necesario
 ]
 
@@ -113,8 +111,16 @@ for target_url, category in product_urls:
     #precio actual
     try:
         price=soup.find("span",{"class":"a-price"}).find("span").text
+        print("price:<", price , ">") 
+
+        # Verificar si el precio es un número
+        try:
+            price = float(price.replace(',', '').replace('$', ''))  # Convertir a número eliminando símbolos y comas
+        except ValueError:
+            price = 0.0  # Si no es un número, asignar 0.0
+
     except:
-        price=None
+        price=0
 
 
     # Extract the previous price
@@ -123,7 +129,7 @@ for target_url, category in product_urls:
 
         print("Old Price:", priceold)
     except:
-        priceold=None
+        priceold=0
 
     # Convertir los precios a números flotantes para el cálculo
     if price:
