@@ -8,10 +8,12 @@ o={}
 specs_arr=[]
 specs_obj={}
 
-proxies = {
-    "http": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
-    "https": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
-}
+#proxies = {
+#    "http": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
+#    "https": "http://oqzjnkw:Fz6hc601@http.ntlm.internetpsa.inetpsa.com:8080",
+#}
+
+proxies = None
 
 useragents=['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
@@ -51,9 +53,11 @@ headers={"User-Agent":useragents[random.randint(0,31)],"accept-language": "en-US
 
 
 product_urls = [
-    ("https://www.amazon.es/dp/B0BPMJPLN5/", "Computers & Laptops"),
-    ("https://www.amazon.es/gp/product/8413923603","Juegos y Juguetes"),
-        ("https://www.amazon.es/gp/product/8413921074","Juegos y Juguetes")
+    ("https://www.amazon.es/dp/B0B688G3RF","Juegos y Juguetes"),
+        ("https://www.amazon.es/dp/B0D95SHGMP","Juegos y Juguetes"),
+            ("https://www.amazon.es/dp/B0CW9KPW1P","Juegos y Juguetes"),
+                        ("https://www.amazon.es/dp/B07CR8NTXD","Juegos y Juguetes"),
+        ("https://www.amazon.es/dp/B0CQ86S113","Juegos y Juguetes")
     # Añade más URLs de productos si es necesario
 ]
 
